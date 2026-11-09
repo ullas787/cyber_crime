@@ -14,18 +14,25 @@ function Auth({ onBack }) {
 
   async function handleSubmit(e) {
     e.preventDefault()
+
     setLoading(true)
     setMessage('')
     setError('')
 
     try {
       if (mode === 'signup') {
+        const trimmedName = fullName.trim()
+
+        if (!trimmedName) {
+          throw new Error('Please enter your full name.')
+        }
+
         const { data, error } = await supabase.auth.signUp({
-          email,
+          email: email.trim(),
           password,
           options: {
             data: {
-              full_name: fullName.trim(),
+              full_name: trimmedName,
             },
             emailRedirectTo: window.location.origin,
           },
@@ -36,17 +43,20 @@ function Auth({ onBack }) {
         if (data.session) {
           setMessage('Account created successfully!')
         } else {
-          setMessage('Account created! Please check your email to verify your account.')
+          setMessage(
+            'Account created! Please check your email to verify your account.'
+          )
         }
       } else {
         const { error } = await supabase.auth.signInWithPassword({
-          email,
+          email: email.trim(),
           password,
         })
 
         if (error) throw error
 
-        setMessage('Login successful!')
+        // App.jsx will detect the new session
+        // and load the user's dashboard automatically.
       }
     } catch (err) {
       setError(err.message || 'Something went wrong.')
@@ -62,9 +72,13 @@ function Auth({ onBack }) {
           ← Back to Home
         </button>
 
-        <div className="auth-brand">🛡️ Cyber<span>Shield</span></div>
+        <div className="auth-brand">
+          🛡️ Cyber<span>Shield</span>
+        </div>
 
-        <h2>{mode === 'login' ? 'Welcome Back' : 'Create Your Account'}</h2>
+        <h2>
+          {mode === 'login' ? 'Welcome Back' : 'Create Your Account'}
+        </h2>
 
         <p className="auth-subtitle">
           {mode === 'login'
@@ -74,6 +88,7 @@ function Auth({ onBack }) {
 
         <div className="auth-tabs">
           <button
+            type="button"
             className={mode === 'login' ? 'active' : ''}
             onClick={() => {
               setMode('login')
@@ -85,6 +100,7 @@ function Auth({ onBack }) {
           </button>
 
           <button
+            type="button"
             className={mode === 'signup' ? 'active' : ''}
             onClick={() => {
               setMode('signup')
@@ -137,7 +153,11 @@ function Auth({ onBack }) {
           {error && <p className="auth-error">{error}</p>}
           {message && <p className="auth-message">{message}</p>}
 
-          <button className="auth-submit" type="submit" disabled={loading}>
+          <button
+            className="auth-submit"
+            type="submit"
+            disabled={loading}
+          >
             {loading
               ? 'Please wait...'
               : mode === 'login'
@@ -151,6 +171,7 @@ function Auth({ onBack }) {
             ? "Don't have an account?"
             : 'Already have an account?'}{' '}
           <button
+            type="button"
             onClick={() => {
               setMode(mode === 'login' ? 'signup' : 'login')
               setError('')
