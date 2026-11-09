@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import './App.css'
+import Auth from './components/Auth'
 
 const threats = [
   {
@@ -19,6 +21,12 @@ const threats = [
 ]
 
 function App() {
+  const [showAuth, setShowAuth] = useState(false)
+
+  if (showAuth) {
+    return <Auth onBack={() => setShowAuth(false)} />
+  }
+
   return (
     <div className="app">
 
@@ -35,9 +43,16 @@ function App() {
           <a href="#about">About</a>
         </div>
 
-        <a href="#learn" className="nav-button">
-          Get Started ↗
-        </a>
+        <a
+  href="#auth"
+  className="nav-button"
+  onClick={(e) => {
+    e.preventDefault()
+    setShowAuth(true)
+  }}
+>
+  Get Started ↗
+</a>
       </nav>
 
       {/* Hero Section */}
