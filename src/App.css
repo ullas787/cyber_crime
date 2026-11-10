@@ -659,3 +659,102 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ================================
+   CYBERSHIELD ANIMATIONS
+================================ */
+
+/* Smooth entrance */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Hero animations */
+.hero-content {
+  animation: fadeUp 0.8s ease-out both;
+}
+
+.shield-visual {
+  animation: fadeIn 1.2s ease-out both;
+}
+
+.shield-glow {
+  animation: shieldPulse 3s ease-in-out infinite;
+}
+
+@keyframes shieldPulse {
+  0%, 100% {
+    box-shadow: 0 0 35px #168ce544,
+                inset 0 0 25px #168ce522;
+  }
+  50% {
+    box-shadow: 0 0 75px #168ce588,
+                inset 0 0 40px #168ce544;
+  }
+}
+
+/* Orbit rotation */
+.orbit {
+  animation: orbitRotate 25s linear infinite;
+}
+
+@keyframes orbitRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Card hover effects */
+.threat-card,
+.safety-item {
+  transition: transform 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.threat-card:hover,
+.safety-item:hover {
+  transform: translateY(-7px);
+  border-color: #35b9ff;
+  box-shadow: 0 12px 35px #168ce51a;
+}
+
+/* Button interaction */
+.primary-button,
+.nav-button {
+  transition: all 0.25s ease;
+}
+
+.primary-button:hover,
+.nav-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px #168ce555;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
