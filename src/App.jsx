@@ -288,22 +288,28 @@ function App() {
         </div>
 
         {/* Animated shield visual */}
-        <div className="shield-visual">
-          <div className="orbit"></div>
-          <div className="orbit orbit-two"></div>
+        
+{/* Animated shield visual */}
+<div className="shield-visual">
+  {/* Rotating orbit circles */}
+  <div className="shield-orbit orbit-one"></div>
+  <div className="shield-orbit orbit-two"></div>
 
-          <div className="shield-glow">
-            <ShieldCheck className="shield-symbol" />
-          </div>
+  {/* Main animated shield */}
+  <div className="shield-icon">
+    <ShieldCheck size={90} strokeWidth={1.6} />
+  </div>
 
-          <div className="floating-tag tag-one">
-            <LockKeyhole size={15} /> Secure
-          </div>
+  {/* Floating labels */}
+  <div className="floating-tag tag-one">
+    <LockKeyhole size={15} /> Secure
+  </div>
 
-          <div className="floating-tag tag-two">
-            <ShieldCheck size={15} /> Protected
-          </div>
-        </div>
+  <div className="floating-tag tag-two">
+    <ShieldCheck size={15} /> Protected
+  </div>
+</div>
+
       </section>
 
       {/* Quick steps */}
