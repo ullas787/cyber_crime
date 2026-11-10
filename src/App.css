@@ -442,3 +442,220 @@
     text-align: center;
   }
 }
+
+/* =================================
+   CYBERSHIELD UI FIXES & ENHANCEMENTS
+================================= */
+
+/* Navigation buttons */
+.nav-links button,
+.hero-buttons button,
+.cta button {
+  background: linear-gradient(135deg, #168ce5, #35b9ff);
+  color: #fff;
+  border: none;
+  padding: 13px 23px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-links button:hover,
+.hero-buttons button:hover,
+.cta button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px #168ce566;
+}
+
+/* Hero label */
+.hero-tag {
+  display: inline-block;
+  color: #38b9ff;
+  background: #102943;
+  border: 1px solid #1c527c;
+  padding: 8px 13px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+/* Hero secondary link */
+.hero-buttons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 21px;
+  border: 1px solid #35465e;
+  border-radius: 8px;
+  color: #e0e9f7;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.hero-buttons a:hover {
+  border-color: #35b9ff;
+  background: #102943;
+}
+
+/* Shield illustration */
+.shield-visual {
+  isolation: isolate;
+}
+
+.shield-orbit {
+  position: absolute;
+  width: 310px;
+  height: 310px;
+  border: 1px solid #236397;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: rotateOrbit 25s linear infinite;
+  pointer-events: none;
+}
+
+.shield-orbit.orbit-two {
+  width: 370px;
+  height: 370px;
+  border-style: dashed;
+  animation-direction: reverse;
+}
+
+.shield-icon {
+  width: 190px;
+  height: 190px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #38b9ff;
+  border-radius: 48px;
+  background: linear-gradient(145deg, #153f65, #0b1d34);
+  box-shadow: 0 0 70px #168ce566, inset 0 0 35px #168ce533;
+  font-size: 90px;
+  animation: floatShield 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+.floating-tag {
+  z-index: 2;
+  animation: floatTag 4s ease-in-out infinite;
+}
+
+.tag-two {
+  animation-delay: 1s;
+}
+
+/* Safety cards */
+.safety-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 25px;
+  background: #111f31;
+  border: 1px solid #25374c;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.safety-card:hover {
+  transform: translateY(-5px);
+  border-color: #258ed0;
+  box-shadow: 0 12px 30px #0004;
+}
+
+.safety-card h3 {
+  font-size: 16px;
+}
+
+.safety-card p {
+  color: #9caec4;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* Threat card improvements */
+.threat-card,
+.safety-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.threat-card:hover,
+.safety-card:hover {
+  box-shadow: 0 12px 30px #168ce522;
+}
+
+/* Entrance animations */
+.hero-content {
+  animation: fadeUp 0.8s ease both;
+}
+
+.shield-visual {
+  animation: fadeIn 1s ease both;
+}
+
+.section-heading {
+  animation: fadeUp 0.7s ease both;
+}
+
+/* Keyframes */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floatShield {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes floatTag {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes rotateOrbit {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
