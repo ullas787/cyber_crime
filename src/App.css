@@ -603,3 +603,81 @@ button {
     scroll-behavior: auto !important;
   }
 }
+/* =================================
+   FIX: MAIN SHIELD & ORBIT ANIMATION
+================================= */
+
+.shield-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  overflow: visible;
+}
+
+/* Orbit circles */
+.shield-visual .shield-orbit {
+  position: absolute;
+  display: block;
+  width: 310px;
+  height: 310px;
+  border: 1px solid #236397;
+  border-radius: 50%;
+  opacity: 0.55;
+  z-index: 0;
+  animation: shieldOrbit 20s linear infinite;
+}
+
+.shield-visual .orbit-two {
+  width: 370px;
+  height: 370px;
+  border-style: dashed;
+  animation-direction: reverse;
+}
+
+/* Main shield */
+.shield-visual .shield-icon {
+  position: relative;
+  z-index: 2;
+  width: 190px;
+  height: 190px;
+  display: grid;
+  place-items: center;
+  font-size: 90px;
+  border: 2px solid #38b9ff;
+  border-radius: 48px;
+  background: linear-gradient(145deg, #153f65, #0b1d34);
+  box-shadow:
+    0 0 45px #168ce566,
+    inset 0 0 35px #168ce533;
+  animation: shieldFloat 4s ease-in-out infinite;
+}
+
+/* Floating labels stay above the shield */
+.shield-visual .floating-tag {
+  z-index: 3;
+}
+
+/* Shield movement */
+@keyframes shieldFloat {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 0 45px #168ce566;
+  }
+
+  50% {
+    transform: translateY(-12px);
+    box-shadow: 0 0 75px #168ce588;
+  }
+}
+
+/* Orbit rotation */
+@keyframes shieldOrbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
