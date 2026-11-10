@@ -1,14 +1,46 @@
 
+/* =========================================
+   CYBERSHIELD — MAIN STYLESHEET
+========================================= */
+
 #root {
   width: 100%;
   min-height: 100vh;
 }
 
-.app {
-  min-height: 100vh;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
   background: #080e1a;
   color: #f4f7ff;
 }
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+  overflow: hidden;
+  background: #080e1a;
+  color: #f4f7ff;
+}
+
+/* NAVIGATION */
 
 .navbar {
   height: 76px;
@@ -16,11 +48,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: rgba(10, 18, 32, 0.92);
   border-bottom: 1px solid #1c293b;
-  background: #0a1220;
+  position: relative;
+  z-index: 10;
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
   color: white;
   text-decoration: none;
   font-size: 23px;
@@ -34,6 +71,7 @@
 
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 35px;
 }
 
@@ -41,113 +79,124 @@
   color: #aebbd0;
   text-decoration: none;
   font-size: 14px;
-  transition: color 0.2s;
+  transition: color 0.25s ease;
 }
 
 .nav-links a:hover {
   color: #35b9ff;
 }
 
-.nav-button,
-.primary-button {
-  background: #168ce5;
+.nav-links button,
+.hero-buttons button,
+.cta button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 23px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #168ce5, #35b9ff);
   color: white;
-  text-decoration: none;
-  padding: 12px 21px;
-  border-radius: 7px;
   font-size: 14px;
-  font-weight: 600;
-  transition: 0.2s;
+  font-weight: 700;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.nav-button:hover,
-.primary-button:hover {
-  background: #0875c9;
-  transform: translateY(-2px);
+.nav-links button:hover,
+.hero-buttons button:hover,
+.cta button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px #168ce566;
 }
+
+/* HERO */
 
 .hero {
-  min-height: 560px;
+  min-height: 670px;
   padding: 75px 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 40px;
+  gap: 50px;
   background:
-    radial-gradient(ellipse at 80% 50%, #102c4c 0%, transparent 45%),
+    radial-gradient(ellipse at 78% 50%, #102c4c 0%, transparent 45%),
     #080e1a;
 }
 
 .hero-content {
-  max-width: 610px;
+  max-width: 650px;
+  animation: fadeUp 0.8s ease both;
 }
 
-.eyebrow,
-.section-label {
-  color: #36baff;
-  font-size: 11px;
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 16px;
+  color: #38b9ff;
+  background: #10263d;
+  border: 1px solid #1c527a;
+  border-radius: 30px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 2px;
-}
-
-.live-dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  background: #28d99b;
-  border-radius: 50%;
-  margin-right: 9px;
+  letter-spacing: 1.5px;
 }
 
 .hero h1 {
+  margin: 28px 0;
   font-size: clamp(42px, 5.5vw, 68px);
   line-height: 1.12;
   letter-spacing: -2.5px;
-  margin: 25px 0;
 }
 
 .hero h1 span {
   color: #38b9ff;
 }
 
-.hero-content > p {
+.hero-content > p:not(.hero-note) {
+  max-width: 550px;
   color: #a8b5c9;
   font-size: 16px;
   line-height: 1.9;
-  max-width: 540px;
 }
 
 .hero-buttons {
   display: flex;
-  gap: 15px;
+  align-items: center;
+  gap: 16px;
   flex-wrap: wrap;
   margin-top: 32px;
 }
 
-.secondary-button {
-  padding: 12px 21px;
+.hero-buttons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 22px;
   border: 1px solid #35465e;
-  border-radius: 7px;
+  border-radius: 9px;
   color: #e0e9f7;
   text-decoration: none;
   font-size: 14px;
-  transition: 0.2s;
+  transition: all 0.25s ease;
 }
 
-.secondary-button:hover {
+.hero-buttons a:hover {
   border-color: #35b9ff;
+  background: #102943;
 }
 
 .hero-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-top: 28px;
   color: #8fa0b8;
   font-size: 13px;
 }
 
-.hero-note span {
-  color: #31d69a;
-  margin-right: 7px;
-}
+/* HERO SHIELD */
 
 .shield-visual {
   width: 380px;
@@ -156,48 +205,58 @@
   display: grid;
   place-items: center;
   position: relative;
+  isolation: isolate;
+  animation: fadeIn 1.2s ease both;
 }
 
-.shield-glow {
-  width: 190px;
-  height: 190px;
-  border: 2px solid #38b9ff;
-  border-radius: 48px;
-  background: linear-gradient(145deg, #153f65, #0b1d34);
-  box-shadow: 0 0 70px #168ce566, inset 0 0 35px #168ce533;
-  transform: rotate(45deg);
-  display: grid;
-  place-items: center;
-}
-
-.shield-symbol {
-  font-size: 90px;
-  transform: rotate(-45deg);
-}
-
-.orbit {
+.shield-orbit {
   position: absolute;
-  border: 1px solid #236397;
-  border-radius: 50%;
   width: 310px;
   height: 310px;
+  border: 1px solid #236397;
+  border-radius: 50%;
   opacity: 0.5;
+  pointer-events: none;
+  animation: rotateOrbit 25s linear infinite;
 }
 
-.orbit-two {
+.shield-orbit.orbit-two {
   width: 370px;
   height: 370px;
   border-style: dashed;
+  animation-direction: reverse;
+}
+
+.shield-icon {
+  width: 190px;
+  height: 190px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #38b9ff;
+  border-radius: 32%;
+  background: linear-gradient(145deg, #153f65, #0b1d34);
+  box-shadow: 0 0 45px #168ce544,
+              inset 0 0 30px #168ce533;
+  color: #38b9ff;
+  font-size: 90px;
+  z-index: 1;
+  animation: floatShield 4s ease-in-out infinite,
+             shieldPulse 3s ease-in-out infinite;
 }
 
 .floating-tag {
   position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 9px;
   padding: 12px 17px;
   border: 1px solid #304c6c;
   background: #102137;
-  border-radius: 8px;
+  border-radius: 9px;
   font-size: 13px;
   box-shadow: 0 10px 25px #0005;
+  animation: floatTag 4s ease-in-out infinite;
 }
 
 .tag-one {
@@ -208,10 +267,13 @@
 .tag-two {
   bottom: 65px;
   left: 0;
+  animation-delay: -2s;
 }
 
+/* STATS */
+
 .stats {
-  padding: 32px 10%;
+  padding: 35px 10%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   background: #0e1929;
@@ -222,29 +284,37 @@
 
 .stats h2 {
   color: #39baff;
-  font-size: 27px;
-  margin: 0 0 8px;
+  font-size: 28px;
+  margin-bottom: 8px;
 }
 
 .stats p {
   color: #aab8cc;
   font-size: 13px;
-  margin: 0;
 }
 
+/* COMMON SECTIONS */
+
 .section {
-  padding: 85px 10%;
+  padding: 90px 10%;
 }
 
 .section-heading {
   text-align: center;
-  margin-bottom: 45px;
+  margin-bottom: 48px;
+}
+
+.section-heading > span {
+  color: #38b9ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
 }
 
 .section-heading h2,
 .cta h2 {
+  margin: 16px 0;
   font-size: 36px;
-  margin: 15px 0;
   letter-spacing: -1px;
 }
 
@@ -255,6 +325,8 @@
   line-height: 1.8;
 }
 
+/* THREAT CARDS */
+
 .threat-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -262,16 +334,22 @@
 }
 
 .threat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   padding: 28px;
   background: #101c2d;
   border: 1px solid #24364d;
-  border-radius: 12px;
-  transition: 0.25s;
+  border-radius: 14px;
+  transition: transform 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
 }
 
 .threat-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-7px);
   border-color: #258ed0;
+  box-shadow: 0 12px 35px #168ce522;
 }
 
 .threat-icon {
@@ -279,28 +357,37 @@
   height: 55px;
   display: grid;
   place-items: center;
+  color: #38b9ff;
+  background: #153450;
+  border-radius: 13px;
   font-size: 26px;
-  border-radius: 12px;
   margin-bottom: 22px;
 }
 
 .threat-card h3 {
   font-size: 19px;
+  margin-bottom: 10px;
 }
 
 .threat-card p {
+  min-height: 65px;
   color: #9caec4;
   font-size: 14px;
   line-height: 1.8;
-  min-height: 100px;
 }
 
 .threat-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
   color: #39baff;
   text-decoration: none;
   font-size: 14px;
   font-weight: 600;
 }
+
+/* SAFETY TIPS */
 
 .safety {
   background: #0c1524;
@@ -312,35 +399,38 @@
   gap: 20px;
 }
 
-.safety-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 18px;
+.safety-card {
   padding: 25px;
   background: #111f31;
   border: 1px solid #25374c;
-  border-radius: 10px;
+  border-radius: 12px;
+  transition: transform 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
 }
 
-.safety-item > span {
-  font-size: 28px;
+.safety-card:hover {
+  transform: translateY(-5px);
+  border-color: #258ed0;
+  box-shadow: 0 12px 30px #0004;
 }
 
-.safety-item h3 {
-  font-size: 17px;
-  margin: 0 0 9px;
+.safety-card h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-.safety-item p {
+.safety-card p {
   color: #9caec4;
   font-size: 13px;
   line-height: 1.7;
-  margin: 0;
 }
+
+/* CALL TO ACTION */
 
 .cta {
   text-align: center;
-  padding: 90px 20px;
+  padding: 95px 20px;
   background:
     radial-gradient(ellipse at center, #153d60 0%, transparent 70%),
     #080e1a;
@@ -350,6 +440,8 @@
   max-width: 540px;
   margin: 0 auto 30px;
 }
+
+/* FOOTER */
 
 .footer {
   padding: 35px 10%;
@@ -362,11 +454,55 @@
   flex-wrap: wrap;
 }
 
-.footer p,
-.footer > span {
+.footer p {
   color: #899ab1;
   font-size: 12px;
 }
+
+/* ANIMATIONS */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes floatShield {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes floatTag {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes rotateOrbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shieldPulse {
+  0%, 100% {
+    box-shadow: 0 0 35px #168ce544,
+                inset 0 0 25px #168ce522;
+  }
+  50% {
+    box-shadow: 0 0 75px #168ce588,
+                inset 0 0 40px #168ce544;
+  }
+}
+
+/* RESPONSIVE DESIGN */
 
 @media (max-width: 900px) {
   .hero {
@@ -394,10 +530,14 @@
   }
 
   .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links a {
     display: none;
   }
 
-  .nav-button {
+  .nav-links button {
     padding: 10px 13px;
     font-size: 12px;
   }
@@ -412,7 +552,15 @@
     font-size: 43px;
   }
 
+  .hero-content > p:not(.hero-note) {
+    font-size: 14px;
+  }
+
   .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-note {
     justify-content: center;
   }
 
@@ -443,311 +591,8 @@
   }
 }
 
-/* =================================
-   CYBERSHIELD UI FIXES & ENHANCEMENTS
-================================= */
+/* ACCESSIBILITY */
 
-/* Navigation buttons */
-.nav-links button,
-.hero-buttons button,
-.cta button {
-  background: linear-gradient(135deg, #168ce5, #35b9ff);
-  color: #fff;
-  border: none;
-  padding: 13px 23px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.nav-links button:hover,
-.hero-buttons button:hover,
-.cta button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px #168ce566;
-}
-
-/* Hero label */
-.hero-tag {
-  display: inline-block;
-  color: #38b9ff;
-  background: #102943;
-  border: 1px solid #1c527c;
-  padding: 8px 13px;
-  border-radius: 30px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-}
-
-/* Hero secondary link */
-.hero-buttons a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 21px;
-  border: 1px solid #35465e;
-  border-radius: 8px;
-  color: #e0e9f7;
-  text-decoration: none;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.hero-buttons a:hover {
-  border-color: #35b9ff;
-  background: #102943;
-}
-
-/* Shield illustration */
-.shield-visual {
-  isolation: isolate;
-}
-
-.shield-orbit {
-  position: absolute;
-  width: 310px;
-  height: 310px;
-  border: 1px solid #236397;
-  border-radius: 50%;
-  opacity: 0.5;
-  animation: rotateOrbit 25s linear infinite;
-  pointer-events: none;
-}
-
-.shield-orbit.orbit-two {
-  width: 370px;
-  height: 370px;
-  border-style: dashed;
-  animation-direction: reverse;
-}
-
-.shield-icon {
-  width: 190px;
-  height: 190px;
-  display: grid;
-  place-items: center;
-  border: 2px solid #38b9ff;
-  border-radius: 48px;
-  background: linear-gradient(145deg, #153f65, #0b1d34);
-  box-shadow: 0 0 70px #168ce566, inset 0 0 35px #168ce533;
-  font-size: 90px;
-  animation: floatShield 4s ease-in-out infinite;
-  z-index: 1;
-}
-
-.floating-tag {
-  z-index: 2;
-  animation: floatTag 4s ease-in-out infinite;
-}
-
-.tag-two {
-  animation-delay: 1s;
-}
-
-/* Safety cards */
-.safety-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 25px;
-  background: #111f31;
-  border: 1px solid #25374c;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.safety-card:hover {
-  transform: translateY(-5px);
-  border-color: #258ed0;
-  box-shadow: 0 12px 30px #0004;
-}
-
-.safety-card h3 {
-  font-size: 16px;
-}
-
-.safety-card p {
-  color: #9caec4;
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-/* Threat card improvements */
-.threat-card,
-.safety-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.threat-card:hover,
-.safety-card:hover {
-  box-shadow: 0 12px 30px #168ce522;
-}
-
-/* Entrance animations */
-.hero-content {
-  animation: fadeUp 0.8s ease both;
-}
-
-.shield-visual {
-  animation: fadeIn 1s ease both;
-}
-
-.section-heading {
-  animation: fadeUp 0.7s ease both;
-}
-
-/* Keyframes */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes floatShield {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-
-@keyframes floatTag {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-7px);
-  }
-}
-
-@keyframes rotateOrbit {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Accessibility: respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ================================
-   CYBERSHIELD ANIMATIONS
-================================ */
-
-/* Smooth entrance */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Hero animations */
-.hero-content {
-  animation: fadeUp 0.8s ease-out both;
-}
-
-.shield-visual {
-  animation: fadeIn 1.2s ease-out both;
-}
-
-.shield-glow {
-  animation: shieldPulse 3s ease-in-out infinite;
-}
-
-@keyframes shieldPulse {
-  0%, 100% {
-    box-shadow: 0 0 35px #168ce544,
-                inset 0 0 25px #168ce522;
-  }
-  50% {
-    box-shadow: 0 0 75px #168ce588,
-                inset 0 0 40px #168ce544;
-  }
-}
-
-/* Orbit rotation */
-.orbit {
-  animation: orbitRotate 25s linear infinite;
-}
-
-@keyframes orbitRotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Card hover effects */
-.threat-card,
-.safety-item {
-  transition: transform 0.3s ease,
-              border-color 0.3s ease,
-              box-shadow 0.3s ease;
-}
-
-.threat-card:hover,
-.safety-item:hover {
-  transform: translateY(-7px);
-  border-color: #35b9ff;
-  box-shadow: 0 12px 35px #168ce51a;
-}
-
-/* Button interaction */
-.primary-button,
-.nav-button {
-  transition: all 0.25s ease;
-}
-
-.primary-button:hover,
-.nav-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px #168ce555;
-}
-
-/* Respect reduced-motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -756,277 +601,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* =====================================
-   CYBERSHIELD UI UPGRADE
-===================================== */
-
-/* Brand and navigation */
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.brand-name {
-  color: #ffffff;
-}
-
-.nav-links {
-  align-items: center;
-}
-
-.nav-links button,
-.primary-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Hero label */
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 10px 16px;
-  color: #38b9ff;
-  background: #10263d;
-  border: 1px solid #1c527a;
-  border-radius: 30px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-}
-
-/* Hero note */
-.hero-note {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.hero-note svg {
-  color: #35d6a0;
-}
-
-.hero-note span {
-  color: #38b9ff;
-}
-
-/* Shield visual */
-.shield-glow {
-  border-radius: 30%;
-  transform: rotate(0deg);
-  animation: shieldPulse 3s ease-in-out infinite;
-}
-
-.shield-symbol {
-  width: 95px;
-  height: 95px;
-  color: #38b9ff;
-  stroke-width: 1.5;
-  transform: none;
-  filter: drop-shadow(0 0 15px #38b9ff66);
-}
-
-.orbit {
-  animation: orbitRotate 25s linear infinite;
-}
-
-.orbit-two {
-  animation-direction: reverse;
-}
-
-.floating-tag {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  animation: floatTag 4s ease-in-out infinite;
-}
-
-.floating-tag svg {
-  color: #38b9ff;
-}
-
-.tag-two {
-  animation-delay: -2s;
-}
-
-@keyframes floatTag {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-9px);
-  }
-}
-
-@keyframes shieldPulse {
-  0%, 100% {
-    box-shadow: 0 0 35px #168ce544,
-                inset 0 0 25px #168ce522;
-  }
-  50% {
-    box-shadow: 0 0 75px #168ce588,
-                inset 0 0 40px #168ce544;
-  }
-}
-
-@keyframes orbitRotate {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Threat cards */
-.threat-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.threat-icon {
-  color: #38b9ff;
-  background: #153450;
-  display: grid;
-  place-items: center;
-}
-
-.threat-purple .threat-icon {
-  color: #b69aff;
-  background: #292044;
-}
-
-.threat-cyan .threat-icon {
-  color: #55e2d1;
-  background: #123c3b;
-}
-
-.threat-card p {
-  min-height: 55px;
-}
-
-.threat-card a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: auto;
-}
-
-.threat-card a svg {
-  transition: transform 0.2s ease;
-}
-
-.threat-card a:hover svg {
-  transform: translateX(5px);
-}
-
-/* Safety cards */
-.safety-item {
-  align-items: center;
-}
-
-.safety-icon {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  display: grid;
-  place-items: center;
-  color: #38b9ff;
-  background: #153450;
-  border-radius: 12px;
-}
-
-/* CTA */
-.cta-icon {
-  width: 65px;
-  height: 65px;
-  margin: 0 auto 22px;
-  display: grid;
-  place-items: center;
-  color: #38b9ff;
-  background: #153450;
-  border: 1px solid #24577d;
-  border-radius: 18px;
-}
-
-/* Scroll reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(25px);
-  transition:
-    opacity 0.7s ease,
-    transform 0.7s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Loading screen */
-.app-loading {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 30px;
-  background: #080e1a;
-  color: #f4f7ff;
-  text-align: center;
-}
-
-.app-loading svg {
-  color: #38b9ff;
-}
-
-/* Responsive improvements */
-@media (max-width: 650px) {
-  .hero-tag {
-    font-size: 10px;
-    letter-spacing: 1px;
-  }
-
-  .hero-note {
-    justify-content: center;
-  }
-
-  .shield-glow {
-    width: 150px;
-    height: 150px;
-  }
-
-  .shield-symbol {
-    width: 75px;
-    height: 75px;
-  }
-
-  .floating-tag {
-    font-size: 11px;
-    padding: 9px 12px;
-  }
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .reveal {
-    opacity: 1;
-    transform: none;
   }
 }
