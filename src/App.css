@@ -758,3 +758,275 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* =====================================
+   CYBERSHIELD UI UPGRADE
+===================================== */
+
+/* Brand and navigation */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-name {
+  color: #ffffff;
+}
+
+.nav-links {
+  align-items: center;
+}
+
+.nav-links button,
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Hero label */
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 16px;
+  color: #38b9ff;
+  background: #10263d;
+  border: 1px solid #1c527a;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+/* Hero note */
+.hero-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-note svg {
+  color: #35d6a0;
+}
+
+.hero-note span {
+  color: #38b9ff;
+}
+
+/* Shield visual */
+.shield-glow {
+  border-radius: 30%;
+  transform: rotate(0deg);
+  animation: shieldPulse 3s ease-in-out infinite;
+}
+
+.shield-symbol {
+  width: 95px;
+  height: 95px;
+  color: #38b9ff;
+  stroke-width: 1.5;
+  transform: none;
+  filter: drop-shadow(0 0 15px #38b9ff66);
+}
+
+.orbit {
+  animation: orbitRotate 25s linear infinite;
+}
+
+.orbit-two {
+  animation-direction: reverse;
+}
+
+.floating-tag {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  animation: floatTag 4s ease-in-out infinite;
+}
+
+.floating-tag svg {
+  color: #38b9ff;
+}
+
+.tag-two {
+  animation-delay: -2s;
+}
+
+@keyframes floatTag {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes shieldPulse {
+  0%, 100% {
+    box-shadow: 0 0 35px #168ce544,
+                inset 0 0 25px #168ce522;
+  }
+  50% {
+    box-shadow: 0 0 75px #168ce588,
+                inset 0 0 40px #168ce544;
+  }
+}
+
+@keyframes orbitRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Threat cards */
+.threat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.threat-icon {
+  color: #38b9ff;
+  background: #153450;
+  display: grid;
+  place-items: center;
+}
+
+.threat-purple .threat-icon {
+  color: #b69aff;
+  background: #292044;
+}
+
+.threat-cyan .threat-icon {
+  color: #55e2d1;
+  background: #123c3b;
+}
+
+.threat-card p {
+  min-height: 55px;
+}
+
+.threat-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.threat-card a svg {
+  transition: transform 0.2s ease;
+}
+
+.threat-card a:hover svg {
+  transform: translateX(5px);
+}
+
+/* Safety cards */
+.safety-item {
+  align-items: center;
+}
+
+.safety-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  display: grid;
+  place-items: center;
+  color: #38b9ff;
+  background: #153450;
+  border-radius: 12px;
+}
+
+/* CTA */
+.cta-icon {
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 22px;
+  display: grid;
+  place-items: center;
+  color: #38b9ff;
+  background: #153450;
+  border: 1px solid #24577d;
+  border-radius: 18px;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(25px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Loading screen */
+.app-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 30px;
+  background: #080e1a;
+  color: #f4f7ff;
+  text-align: center;
+}
+
+.app-loading svg {
+  color: #38b9ff;
+}
+
+/* Responsive improvements */
+@media (max-width: 650px) {
+  .hero-tag {
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+
+  .hero-note {
+    justify-content: center;
+  }
+
+  .shield-glow {
+    width: 150px;
+    height: 150px;
+  }
+
+  .shield-symbol {
+    width: 75px;
+    height: 75px;
+  }
+
+  .floating-tag {
+    font-size: 11px;
+    padding: 9px 12px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
