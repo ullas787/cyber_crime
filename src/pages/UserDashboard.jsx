@@ -1,12 +1,11 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import LearningModules from './LearningModules'
 import {
   ShieldCheck,
   LayoutDashboard,
   BookOpen,
   ClipboardCheck,
-  Link2,
   FileWarning,
   UserRound,
   LogOut,
@@ -17,8 +16,12 @@ import {
   Bell,
   Sparkles,
   ScanSearch,
+  LoaderCircle,
+  Trophy,
+  Clock3,
 } from 'lucide-react'
 
+import { supabase } from '../lib/supabase'
 import './UserDashboard.css'
 
 function UserDashboard({ profile, onLogout }) {
@@ -27,6 +30,118 @@ function UserDashboard({ profile, onLogout }) {
 
   const [activePage, setActivePage] = useState('overview')
 
+  const [stats, setStats] = useState({
+    completedModules: 0,
+    totalModules: 0,
+    quizCount: 0,
+    averageScore: 0,
+  })
+
+  const [recentAttempts, setRecentAttempts] = useState([])
+  const [dashboardLoading, setDashboardLoading] = useState(true)
+  const [dashboardError, setDashboardError] = useState('')
+
+  useEffect(() => {
+    let active = true
+
+    async function loadDashboardData() {
+      setDashboardLoading(true)
+      setDashboardError('')
+
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser()
+
+      if (userError || !user) {
+        if (active) {
+          setDashboardError('Unable to verify your account. Please sign in again.')
+          setDashboardLoading(false)
+        }
+        return
+      }
+
+      const [
+        completedResult,
+        modulesResult,
+        attemptsResult,
+        attemptCountResult,
+      ] = await Promise.all([
+        supabase
+          .from('user_module_progress')
+          .select('module_id', { count: 'exact' }),
+
+        supabase
+          .from('learning_modules')
+          .select('id', { count: 'exact', head: true })
+          .eq('is_published', true),
+
+        supabase
+          .from('user_quiz_attempts')
+          .select(`
+            id,
+            score,
+            total_questions,
+            submitted_at,
+            learning_modules (
+              title
+            )
+          `)
+          .order('submitted_at', { ascending: false }),
+
+        supabase
+          .from('user_quiz_attempts')
+          .select('id', { count: 'exact', head: true }),
+      ])
+
+      if (!active) return
+
+      const queryError =
+        completedResult.error ||
+        modulesResult.error ||
+        attemptsResult.error ||
+        attemptCountResult.error
+
+      if (queryError) {
+        setDashboardError(queryError.message)
+        setDashboardLoading(false)
+        return
+      }
+
+      const completedModules = completedResult.count || 0
+      const totalModules = modulesResult.count || 0
+      const attempts = attemptsResult.data || []
+      const quizCount = attemptCountResult.count || 0
+
+      const totalPercentage = attempts.reduce((sum, attempt) => {
+        if (!attempt.total_questions) return sum
+
+        return sum +
+          (attempt.score / attempt.total_questions) * 100
+      }, 0)
+
+      const averageScore = attempts.length
+        ? Math.round(totalPercentage / attempts.length)
+        : 0
+
+      setStats({
+        completedModules,
+        totalModules,
+        quizCount,
+        averageScore,
+      })
+
+      setRecentAttempts(attempts.slice(0, 5))
+      setDashboardLoading(false)
+    }
+
+    loadDashboardData()
+
+    return () => {
+      active = false
+    }
+  }, [])
+
   if (activePage === 'learning') {
     return (
       <LearningModules
@@ -34,6 +149,12 @@ function UserDashboard({ profile, onLogout }) {
       />
     )
   }
+
+  const progressPercentage = stats.totalModules
+    ? Math.round(
+        (stats.completedModules / stats.totalModules) * 100
+      )
+    : 0
 
   const features = [
     {
@@ -47,7 +168,7 @@ function UserDashboard({ profile, onLogout }) {
       icon: ClipboardCheck,
       title: 'Cyber Safety Quiz',
       description: 'Challenge your knowledge through interactive safety quizzes.',
-      status: 'In development',
+      status: 'Available',
       color: 'purple',
     },
     {
@@ -65,6 +186,14 @@ function UserDashboard({ profile, onLogout }) {
       color: 'orange',
     },
   ]
+
+  function formatDate(dateString) {
+    return new Date(dateString).toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    })
+  }
 
   return (
     <div className="cs-dashboard">
@@ -84,7 +213,6 @@ function UserDashboard({ profile, onLogout }) {
             <span>Overview</span>
           </a>
 
-          {/* STEP C: Cyber Safety navigation */}
           <button
             type="button"
             className="cs-nav-item"
@@ -192,6 +320,12 @@ function UserDashboard({ profile, onLogout }) {
           </div>
         </section>
 
+        {dashboardError && (
+          <div className="cs-dashboard-error">
+            {dashboardError}
+          </div>
+        )}
+
         <section className="cs-stats-grid">
           <div className="cs-stat-card">
             <div className="cs-stat-top">
@@ -200,11 +334,24 @@ function UserDashboard({ profile, onLogout }) {
                 <Activity size={19} />
               </div>
             </div>
-            <strong>0%</strong>
+
+            <strong>
+              {dashboardLoading ? '...' : `${progressPercentage}%`}
+            </strong>
+
             <div className="cs-progress-track">
-              <div style={{ width: '0%' }} />
+              <div
+                style={{
+                  width: `${progressPercentage}%`,
+                }}
+              />
             </div>
-            <small>Progress tracking coming soon</small>
+
+            <small>
+              {dashboardLoading
+                ? 'Loading progress...'
+                : 'Your completed learning modules'}
+            </small>
           </div>
 
           <div className="cs-stat-card">
@@ -214,8 +361,16 @@ function UserDashboard({ profile, onLogout }) {
                 <BookOpen size={19} />
               </div>
             </div>
-            <strong>0</strong>
-            <small>No completed modules yet</small>
+
+            <strong>
+              {dashboardLoading ? '...' : stats.completedModules}
+            </strong>
+
+            <small>
+              {dashboardLoading
+                ? 'Loading...'
+                : `Out of ${stats.totalModules} published modules`}
+            </small>
           </div>
 
           <div className="cs-stat-card">
@@ -225,8 +380,16 @@ function UserDashboard({ profile, onLogout }) {
                 <ClipboardCheck size={19} />
               </div>
             </div>
-            <strong>0</strong>
-            <small>Quiz tracking coming soon</small>
+
+            <strong>
+              {dashboardLoading ? '...' : stats.quizCount}
+            </strong>
+
+            <small>
+              {dashboardLoading
+                ? 'Loading...'
+                : `Average score: ${stats.averageScore}%`}
+            </small>
           </div>
         </section>
 
@@ -247,11 +410,17 @@ function UserDashboard({ profile, onLogout }) {
               return (
                 <article
                   className={`cs-feature-card ${feature.color} ${
-                    feature.title === 'Learning Modules' ? 'cs-clickable' : ''
+                    feature.title === 'Learning Modules' ||
+                    feature.title === 'Cyber Safety Quiz'
+                      ? 'cs-clickable'
+                      : ''
                   }`}
                   key={feature.title}
                   onClick={() => {
-                    if (feature.title === 'Learning Modules') {
+                    if (
+                      feature.title === 'Learning Modules' ||
+                      feature.title === 'Cyber Safety Quiz'
+                    ) {
                       setActivePage('learning')
                     }
                   }}
@@ -271,7 +440,8 @@ function UserDashboard({ profile, onLogout }) {
 
                   <div className="cs-feature-bottom">
                     <span>
-                      {feature.title === 'Learning Modules'
+                      {feature.title === 'Learning Modules' ||
+                      feature.title === 'Cyber Safety Quiz'
                         ? 'Start learning'
                         : 'Feature preview'}
                     </span>
@@ -288,18 +458,60 @@ function UserDashboard({ profile, onLogout }) {
             <div className="cs-panel-heading">
               <div>
                 <span className="cs-section-eyebrow">YOUR JOURNEY</span>
-                <h3>Recent Activity</h3>
+                <h3>Recent Quiz Activity</h3>
               </div>
               <Activity size={20} />
             </div>
 
-            <div className="cs-empty-activity">
-              <div className="cs-empty-icon">
-                <Activity size={24} />
+            {dashboardLoading ? (
+              <div className="cs-empty-activity">
+                <LoaderCircle className="cs-activity-spinner" size={25} />
+                <p>Loading your activity...</p>
               </div>
-              <strong>No activity yet</strong>
-              <p>Your learning and security activity will appear here.</p>
-            </div>
+            ) : recentAttempts.length === 0 ? (
+              <div className="cs-empty-activity">
+                <div className="cs-empty-icon">
+                  <Activity size={24} />
+                </div>
+                <strong>No quiz attempts yet</strong>
+                <p>Your quiz scores will appear here after completing a quiz.</p>
+              </div>
+            ) : (
+              <div className="cs-quiz-history">
+                {recentAttempts.map((attempt) => {
+                  const percentage = attempt.total_questions
+                    ? Math.round(
+                        (attempt.score / attempt.total_questions) * 100
+                      )
+                    : 0
+
+                  return (
+                    <div className="cs-quiz-history-item" key={attempt.id}>
+                      <div className="cs-history-icon">
+                        <Trophy size={19} />
+                      </div>
+
+                      <div className="cs-history-details">
+                        <strong>
+                          {attempt.learning_modules?.title || 'Learning Module'}
+                        </strong>
+                        <small>
+                          <Clock3 size={12} />
+                          {formatDate(attempt.submitted_at)}
+                        </small>
+                      </div>
+
+                      <div className="cs-history-score">
+                        <strong>
+                          {attempt.score}/{attempt.total_questions}
+                        </strong>
+                        <span>{percentage}%</span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           <div className="cs-account-panel" id="account">
@@ -329,6 +541,13 @@ function UserDashboard({ profile, onLogout }) {
             <div className="cs-account-info">
               <span>Account status</span>
               <strong className="cs-active-label">● Active</strong>
+            </div>
+
+            <div className="cs-account-info">
+              <span>Average quiz score</span>
+              <strong>
+                {dashboardLoading ? '...' : `${stats.averageScore}%`}
+              </strong>
             </div>
           </div>
         </section>

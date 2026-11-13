@@ -915,3 +915,103 @@ button.cs-nav-item {
   outline: 2px solid #60a5fa;
   outline-offset: 4px;
 }
+
+/* Dashboard data and quiz history */
+
+.cs-dashboard-error {
+  padding: 13px 16px;
+  margin: 15px 0;
+  border: 1px solid rgba(240, 108, 120, 0.3);
+  border-radius: 10px;
+  background: rgba(240, 108, 120, 0.08);
+  color: #ff9ba4;
+  font-size: 13px;
+}
+
+.cs-quiz-history {
+  display: grid;
+  gap: 0;
+}
+
+.cs-quiz-history-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(133, 170, 210, 0.12);
+}
+
+.cs-quiz-history-item:last-child {
+  border-bottom: none;
+}
+
+.cs-history-icon {
+  width: 39px;
+  height: 39px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: rgba(53, 185, 255, 0.1);
+  color: #35b9ff;
+}
+
+.cs-history-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  flex: 1;
+}
+
+.cs-history-details strong {
+  color: #eaf3ff;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.cs-history-details small {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #8fa5bf;
+  font-size: 11px;
+}
+
+.cs-history-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.cs-history-score strong {
+  color: #35b9ff;
+  font-size: 14px;
+}
+
+.cs-history-score span {
+  color: #9aabc0;
+  font-size: 11px;
+}
+
+.cs-activity-spinner {
+  color: #35b9ff;
+  animation: cs-activity-spin 1s linear infinite;
+}
+
+@keyframes cs-activity-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 500px) {
+  .cs-quiz-history-item {
+    gap: 9px;
+  }
+
+  .cs-history-details strong {
+    font-size: 12px;
+  }
+}
