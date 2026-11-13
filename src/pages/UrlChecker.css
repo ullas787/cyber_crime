@@ -1,0 +1,316 @@
+
+.cs-url-page {
+  min-height: 100vh;
+  padding: 35px;
+  color: #e8f1ff;
+  background: #080e1a;
+}
+
+.cs-url-back {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: none;
+  background: transparent;
+  color: #a8bad3;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 45px;
+}
+
+.cs-url-back:hover {
+  color: #35b9ff;
+}
+
+.cs-url-heading {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 40px;
+}
+
+.cs-url-heading-icon {
+  display: grid;
+  place-items: center;
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 20px;
+  border-radius: 20px;
+  color: #35b9ff;
+  background: #122b43;
+}
+
+.cs-url-eyebrow {
+  display: block;
+  color: #35b9ff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.cs-url-heading h1 {
+  font-size: clamp(35px, 5vw, 48px);
+  margin: 0;
+}
+
+.cs-url-heading h1 span {
+  color: #35b9ff;
+}
+
+.cs-url-heading p {
+  color: #93a7c2;
+  line-height: 1.7;
+}
+
+.cs-url-form,
+.cs-url-results,
+.cs-url-pending,
+.cs-url-warning {
+  max-width: 800px;
+  margin: 0 auto 22px;
+  padding: 25px;
+  border: 1px solid #20344d;
+  border-radius: 17px;
+  background: #0e1a2a;
+}
+
+.cs-url-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 13px;
+}
+
+.cs-url-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px 8px 15px;
+  border: 1px solid #2b4562;
+  border-radius: 11px;
+  background: #091321;
+  color: #8da5c1;
+}
+
+.cs-url-input-wrap:focus-within {
+  border-color: #35b9ff;
+}
+
+.cs-url-input-wrap input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+.cs-url-input-wrap button,
+.cs-url-pending button,
+.cs-url-rescan {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 9px;
+  background: #168ce5;
+  color: white;
+  padding: 12px 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cs-url-input-wrap button:disabled,
+.cs-url-pending button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.cs-url-form > small {
+  display: block;
+  color: #7f94ae;
+  margin-top: 12px;
+}
+
+.cs-url-error {
+  max-width: 800px;
+  margin: 0 auto 20px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #743b43;
+  border-radius: 11px;
+  background: #301c25;
+  color: #ffb3b3;
+}
+
+.cs-url-pending {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.cs-url-pending-icon {
+  color: #35b9ff;
+}
+
+.cs-url-pending > div:nth-child(2) {
+  flex: 1;
+}
+
+.cs-url-pending p,
+.cs-url-warning p {
+  color: #93a7c2;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 6px 0 0;
+}
+
+.cs-url-result-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.cs-url-result-heading h2 {
+  margin: 0;
+}
+
+.cs-url-verdict {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cs-url-verdict.danger {
+  color: #ffaaaa;
+  background: #46232b;
+}
+
+.cs-url-verdict.safe {
+  color: #79e3ae;
+  background: #173b30;
+}
+
+.cs-url-verdict.pending {
+  color: #ffd58a;
+  background: #40351f;
+}
+
+.cs-url-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.cs-url-stat {
+  padding: 18px 10px;
+  border-radius: 12px;
+  background: #13243a;
+  text-align: center;
+}
+
+.cs-url-stat strong {
+  display: block;
+  font-size: 27px;
+  margin-bottom: 7px;
+}
+
+.cs-url-stat span {
+  color: #9eb1c9;
+  font-size: 12px;
+}
+
+.cs-url-stat.malicious strong {
+  color: #ff7777;
+}
+
+.cs-url-stat.suspicious strong {
+  color: #ffc36e;
+}
+
+.cs-url-stat.harmless strong {
+  color: #72dfa5;
+}
+
+.cs-url-stat.undetected strong {
+  color: #8bcaff;
+}
+
+.cs-url-disclaimer,
+.cs-url-waiting {
+  color: #9aadc5;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 22px;
+}
+
+.cs-url-rescan {
+  margin-top: 20px;
+}
+
+.cs-url-warning {
+  display: flex;
+  gap: 13px;
+  color: #ffc36e;
+  border-color: #5c482a;
+  background: #211d17;
+}
+
+.cs-url-warning strong {
+  color: #ffd28c;
+}
+
+.cs-url-spin {
+  animation: cs-url-rotation 1s linear infinite;
+}
+
+@keyframes cs-url-rotation {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 650px) {
+  .cs-url-page {
+    padding: 20px;
+  }
+
+  .cs-url-input-wrap {
+    flex-wrap: wrap;
+  }
+
+  .cs-url-input-wrap input {
+    width: calc(100% - 40px);
+  }
+
+  .cs-url-input-wrap button {
+    width: 100%;
+  }
+
+  .cs-url-pending {
+    flex-wrap: wrap;
+  }
+
+  .cs-url-pending button {
+    width: 100%;
+  }
+
+  .cs-url-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cs-url-result-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

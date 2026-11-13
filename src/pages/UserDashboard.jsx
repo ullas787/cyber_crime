@@ -1,6 +1,8 @@
 
 import { useEffect, useState } from 'react'
 import LearningModules from './LearningModules'
+import UrlChecker from './UrlChecker'
+
 import {
   ShieldCheck,
   LayoutDashboard,
@@ -55,7 +57,9 @@ function UserDashboard({ profile, onLogout }) {
 
       if (userError || !user) {
         if (active) {
-          setDashboardError('Unable to verify your account. Please sign in again.')
+          setDashboardError(
+            'Unable to verify your account. Please sign in again.'
+          )
           setDashboardLoading(false)
         }
         return
@@ -142,9 +146,19 @@ function UserDashboard({ profile, onLogout }) {
     }
   }, [])
 
+  // Learning Modules page
   if (activePage === 'learning') {
     return (
       <LearningModules
+        onBack={() => setActivePage('overview')}
+      />
+    )
+  }
+
+  // URL Checker page
+  if (activePage === 'url-checker') {
+    return (
+      <UrlChecker
         onBack={() => setActivePage('overview')}
       />
     )
@@ -175,7 +189,7 @@ function UserDashboard({ profile, onLogout }) {
       icon: ScanSearch,
       title: 'URL Checker',
       description: 'Inspect suspicious links with threat intelligence.',
-      status: 'In development',
+      status: 'Available',
       color: 'cyan',
     },
     {
@@ -202,7 +216,9 @@ function UserDashboard({ profile, onLogout }) {
           <div className="cs-brand-icon">
             <ShieldCheck size={25} />
           </div>
-          <span>Cyber<span className="brand-highlight">Shield</span></span>
+          <span>
+            Cyber<span className="brand-highlight">Shield</span>
+          </span>
         </a>
 
         <div className="cs-sidebar-group">
@@ -407,13 +423,15 @@ function UserDashboard({ profile, onLogout }) {
             {features.map((feature) => {
               const Icon = feature.icon
 
+              const isAvailable =
+                feature.title === 'Learning Modules' ||
+                feature.title === 'Cyber Safety Quiz' ||
+                feature.title === 'URL Checker'
+
               return (
                 <article
                   className={`cs-feature-card ${feature.color} ${
-                    feature.title === 'Learning Modules' ||
-                    feature.title === 'Cyber Safety Quiz'
-                      ? 'cs-clickable'
-                      : ''
+                    isAvailable ? 'cs-clickable' : ''
                   }`}
                   key={feature.title}
                   onClick={() => {
@@ -422,6 +440,26 @@ function UserDashboard({ profile, onLogout }) {
                       feature.title === 'Cyber Safety Quiz'
                     ) {
                       setActivePage('learning')
+                    }
+
+                    if (feature.title === 'URL Checker') {
+                      setActivePage('url-checker')
+                    }
+                  }}
+                  role={isAvailable ? 'button' : undefined}
+                  tabIndex={isAvailable ? 0 : undefined}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      if (
+                        feature.title === 'Learning Modules' ||
+                        feature.title === 'Cyber Safety Quiz'
+                      ) {
+                        setActivePage('learning')
+                      }
+
+                      if (feature.title === 'URL Checker') {
+                        setActivePage('url-checker')
+                      }
                     }
                   }}
                 >
@@ -443,7 +481,9 @@ function UserDashboard({ profile, onLogout }) {
                       {feature.title === 'Learning Modules' ||
                       feature.title === 'Cyber Safety Quiz'
                         ? 'Start learning'
-                        : 'Feature preview'}
+                        : feature.title === 'URL Checker'
+                          ? 'Check a URL'
+                          : 'Feature preview'}
                     </span>
                     <ChevronRight size={18} />
                   </div>
