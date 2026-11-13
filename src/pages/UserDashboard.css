@@ -898,3 +898,20 @@
     transition: none;
   }
 }
+button.cs-nav-item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cs-clickable {
+  cursor: pointer;
+}
+
+.cs-clickable:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 4px;
+}

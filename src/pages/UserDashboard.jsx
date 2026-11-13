@@ -1,4 +1,6 @@
 
+import { useState } from 'react'
+import LearningModules from './LearningModules'
 import {
   ShieldCheck,
   LayoutDashboard,
@@ -23,12 +25,22 @@ function UserDashboard({ profile, onLogout }) {
   const userName = profile?.full_name || 'User'
   const firstName = userName.trim().split(' ')[0]
 
+  const [activePage, setActivePage] = useState('overview')
+
+  if (activePage === 'learning') {
+    return (
+      <LearningModules
+        onBack={() => setActivePage('overview')}
+      />
+    )
+  }
+
   const features = [
     {
       icon: BookOpen,
       title: 'Learning Modules',
       description: 'Understand cyber threats and learn how to protect yourself online.',
-      status: 'Coming next',
+      status: 'Available',
       color: 'blue',
     },
     {
@@ -72,10 +84,15 @@ function UserDashboard({ profile, onLogout }) {
             <span>Overview</span>
           </a>
 
-          <a href="#tools" className="cs-nav-item">
+          {/* STEP C: Cyber Safety navigation */}
+          <button
+            type="button"
+            className="cs-nav-item"
+            onClick={() => setActivePage('learning')}
+          >
             <BookOpen size={19} />
             <span>Cyber Safety</span>
-          </a>
+          </button>
 
           <a href="#activity" className="cs-nav-item">
             <Activity size={19} />
@@ -229,8 +246,15 @@ function UserDashboard({ profile, onLogout }) {
 
               return (
                 <article
-                  className={`cs-feature-card ${feature.color}`}
+                  className={`cs-feature-card ${feature.color} ${
+                    feature.title === 'Learning Modules' ? 'cs-clickable' : ''
+                  }`}
                   key={feature.title}
+                  onClick={() => {
+                    if (feature.title === 'Learning Modules') {
+                      setActivePage('learning')
+                    }
+                  }}
                 >
                   <div className="cs-feature-top">
                     <div className="cs-feature-icon">
@@ -246,7 +270,11 @@ function UserDashboard({ profile, onLogout }) {
                   <p>{feature.description}</p>
 
                   <div className="cs-feature-bottom">
-                    <span>Feature preview</span>
+                    <span>
+                      {feature.title === 'Learning Modules'
+                        ? 'Start learning'
+                        : 'Feature preview'}
+                    </span>
                     <ChevronRight size={18} />
                   </div>
                 </article>
