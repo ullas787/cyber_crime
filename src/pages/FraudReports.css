@@ -1,0 +1,345 @@
+
+.cs-report-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 35px 24px 60px;
+  color: #eaf2ff;
+}
+
+.cs-report-back {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: transparent;
+  border: none;
+  color: #8db7df;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 35px;
+}
+
+.cs-report-back:hover {
+  color: #35b9ff;
+}
+
+.cs-report-heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.cs-report-heading-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 20px;
+  background: #122d46;
+  color: #35b9ff;
+}
+
+.cs-report-heading > span {
+  color: #35b9ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.cs-report-heading h1 {
+  font-size: clamp(35px, 6vw, 54px);
+  margin: 14px 0 8px;
+}
+
+.cs-report-heading h1 strong {
+  color: #35b9ff;
+}
+
+.cs-report-heading p {
+  color: #91aac8;
+  font-size: 16px;
+}
+
+.cs-report-form,
+.cs-report-history {
+  background: #0f1b2b;
+  border: 1px solid #203751;
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 25px;
+}
+
+.cs-report-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #35b9ff;
+  margin-bottom: 25px;
+}
+
+.cs-report-section-heading h2 {
+  color: #eaf2ff;
+  font-size: 21px;
+  margin: 0;
+}
+
+.cs-report-form label {
+  display: block;
+  color: #dce9fa;
+  font-weight: 650;
+  margin: 21px 0 9px;
+  font-size: 14px;
+}
+
+.cs-report-form label span {
+  color: #829ab7;
+  font-weight: 400;
+}
+
+.cs-report-form input,
+.cs-report-form select,
+.cs-report-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: #091321;
+  border: 1px solid #29435f;
+  border-radius: 11px;
+  padding: 14px 15px;
+  color: #eaf2ff;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cs-report-form select option {
+  background: #0f1b2b;
+}
+
+.cs-report-form textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.cs-report-form input:focus,
+.cs-report-form select:focus,
+.cs-report-form textarea:focus {
+  border-color: #35b9ff;
+  box-shadow: 0 0 0 3px #35b9ff20;
+}
+
+.cs-report-character-count {
+  text-align: right;
+  color: #7890ad;
+  font-size: 12px;
+  margin-top: 7px;
+}
+
+.cs-report-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 25px;
+  padding: 15px;
+  border: none;
+  border-radius: 11px;
+  background: #168ce5;
+  color: white;
+  font-size: 15px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.cs-report-submit:hover:not(:disabled) {
+  background: #35aaff;
+  transform: translateY(-2px);
+}
+
+.cs-report-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.cs-report-notice {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 25px;
+  padding: 16px;
+  border: 1px solid #69502b;
+  border-radius: 12px;
+  background: #241e16;
+  color: #ffbf63;
+}
+
+.cs-report-notice svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.cs-report-notice p {
+  margin: 0;
+  color: #c5b49a;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.cs-report-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.cs-report-message.error {
+  color: #ff9999;
+  background: #3a2029;
+  border: 1px solid #713b49;
+}
+
+.cs-report-message.success {
+  color: #72e6b0;
+  background: #15372f;
+  border: 1px solid #27664f;
+}
+
+.cs-report-message svg {
+  flex-shrink: 0;
+}
+
+.cs-report-empty {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  color: #829ab7;
+  text-align: center;
+}
+
+.cs-report-empty strong {
+  color: #dce9fa;
+}
+
+.cs-report-empty p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.cs-report-list {
+  display: grid;
+  gap: 15px;
+}
+
+.cs-report-card {
+  background: #142439;
+  border: 1px solid #263e59;
+  border-radius: 13px;
+  padding: 20px;
+}
+
+.cs-report-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.cs-report-category {
+  color: #35b9ff;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.cs-report-card h3 {
+  color: #eaf2ff;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+.cs-report-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 10px;
+  border-radius: 30px;
+}
+
+.cs-report-status.pending {
+  color: #ffc46a;
+  background: #49351d;
+}
+
+.cs-report-status.in_review {
+  color: #65c7ff;
+  background: #183b56;
+}
+
+.cs-report-status.resolved {
+  color: #65e4ac;
+  background: #174334;
+}
+
+.cs-report-status.rejected {
+  color: #ff9999;
+  background: #482630;
+}
+
+.cs-report-card-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 12px;
+  color: #8da5c0;
+  font-size: 12px;
+}
+
+.cs-report-card-bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #35b9ff;
+  text-decoration: none;
+}
+
+.cs-report-card-bottom a:hover {
+  text-decoration: underline;
+}
+
+.cs-report-spin {
+  animation: cs-report-rotate 1s linear infinite;
+}
+
+@keyframes cs-report-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .cs-report-page {
+    padding: 22px 14px 40px;
+  }
+
+  .cs-report-form,
+  .cs-report-history {
+    padding: 20px 16px;
+  }
+
+  .cs-report-card-top {
+    flex-direction: column;
+  }
+
+  .cs-report-heading h1 {
+    font-size: 38px;
+  }
+}

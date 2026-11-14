@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import LearningModules from './LearningModules'
 import UrlChecker from './UrlChecker'
+import FraudReports from './FraudReports'
 
 import {
   ShieldCheck,
@@ -164,6 +165,15 @@ function UserDashboard({ profile, onLogout }) {
     )
   }
 
+  // Fraud Reports page
+  if (activePage === 'fraud-reports') {
+    return (
+      <FraudReports
+        onBack={() => setActivePage('overview')}
+      />
+    )
+  }
+
   const progressPercentage = stats.totalModules
     ? Math.round(
         (stats.completedModules / stats.totalModules) * 100
@@ -177,6 +187,7 @@ function UserDashboard({ profile, onLogout }) {
       description: 'Understand cyber threats and learn how to protect yourself online.',
       status: 'Available',
       color: 'blue',
+      page: 'learning',
     },
     {
       icon: ClipboardCheck,
@@ -184,6 +195,7 @@ function UserDashboard({ profile, onLogout }) {
       description: 'Challenge your knowledge through interactive safety quizzes.',
       status: 'Available',
       color: 'purple',
+      page: 'learning',
     },
     {
       icon: ScanSearch,
@@ -191,13 +203,15 @@ function UserDashboard({ profile, onLogout }) {
       description: 'Inspect suspicious links with threat intelligence.',
       status: 'Available',
       color: 'cyan',
+      page: 'url-checker',
     },
     {
       icon: FileWarning,
       title: 'Report a Fraud',
       description: 'Submit details of suspicious digital activities.',
-      status: 'In development',
+      status: 'Available',
       color: 'orange',
+      page: 'fraud-reports',
     },
   ]
 
@@ -236,6 +250,15 @@ function UserDashboard({ profile, onLogout }) {
           >
             <BookOpen size={19} />
             <span>Cyber Safety</span>
+          </button>
+
+          <button
+            type="button"
+            className="cs-nav-item"
+            onClick={() => setActivePage('fraud-reports')}
+          >
+            <FileWarning size={19} />
+            <span>Report a Fraud</span>
           </button>
 
           <a href="#activity" className="cs-nav-item">
@@ -423,43 +446,17 @@ function UserDashboard({ profile, onLogout }) {
             {features.map((feature) => {
               const Icon = feature.icon
 
-              const isAvailable =
-                feature.title === 'Learning Modules' ||
-                feature.title === 'Cyber Safety Quiz' ||
-                feature.title === 'URL Checker'
-
               return (
                 <article
-                  className={`cs-feature-card ${feature.color} ${
-                    isAvailable ? 'cs-clickable' : ''
-                  }`}
+                  className={`cs-feature-card ${feature.color} cs-clickable`}
                   key={feature.title}
-                  onClick={() => {
-                    if (
-                      feature.title === 'Learning Modules' ||
-                      feature.title === 'Cyber Safety Quiz'
-                    ) {
-                      setActivePage('learning')
-                    }
-
-                    if (feature.title === 'URL Checker') {
-                      setActivePage('url-checker')
-                    }
-                  }}
-                  role={isAvailable ? 'button' : undefined}
-                  tabIndex={isAvailable ? 0 : undefined}
+                  onClick={() => setActivePage(feature.page)}
+                  role="button"
+                  tabIndex={0}
                   onKeyDown={(event) => {
                     if (event.key === 'Enter' || event.key === ' ') {
-                      if (
-                        feature.title === 'Learning Modules' ||
-                        feature.title === 'Cyber Safety Quiz'
-                      ) {
-                        setActivePage('learning')
-                      }
-
-                      if (feature.title === 'URL Checker') {
-                        setActivePage('url-checker')
-                      }
+                      event.preventDefault()
+                      setActivePage(feature.page)
                     }
                   }}
                 >
@@ -478,12 +475,11 @@ function UserDashboard({ profile, onLogout }) {
 
                   <div className="cs-feature-bottom">
                     <span>
-                      {feature.title === 'Learning Modules' ||
-                      feature.title === 'Cyber Safety Quiz'
+                      {feature.page === 'learning'
                         ? 'Start learning'
-                        : feature.title === 'URL Checker'
+                        : feature.page === 'url-checker'
                           ? 'Check a URL'
-                          : 'Feature preview'}
+                          : 'Submit a report'}
                     </span>
                     <ChevronRight size={18} />
                   </div>
